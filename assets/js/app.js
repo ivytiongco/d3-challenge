@@ -142,16 +142,11 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .attr("fill", "lightblue")
     .attr("opacity", "1");
 
-  // DOESN'T WORK ??????????????????????  
-  //Adding text labels to the groups
-  circlesGroup.append("text") // returns a selection of text, newly append to each g in node
-      .text(function(d) { return d.abbr; })
-    //  .attr("fill", "white")
-      .style("opacity", "1")
-      .style("fill", "white")
-      .attr("font-size", "0.8em")
-      .attr("text-anchor",  "middle");
-  // DOESN'T WORK ?????????????????? - END
+  var circleLabels = chartGroup.append("text")
+    .classed('circleText', true)
+    .attr('dy', '0.35em')
+    .attr('dx', 5)
+    .text(d => "Node: " + d.id);
 
   // Create group for two x-axis labels
   var labelsGroup = chartGroup.append("g")
