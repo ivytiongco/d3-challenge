@@ -114,7 +114,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
 
   // Create y scale function
   var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(healthData, d => d.healthcare)])
+    .domain([d3.min(healthData, d => d.healthcare) - 0.5, d3.max(healthData, d => d.healthcare) + 2])
     .range([height, 0]);
 
   // Create initial axis functions
@@ -142,17 +142,16 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .attr("fill", "lightblue")
     .attr("opacity", "1");
 
+  // DOESN'T WORK ??????????????????????  
   //Adding text labels to the groups
-  circlesGroup.append("text");
-
-  //Styling text
-  circlesGroup.selectAll("text")
-    .text(function(d) { return d.abbr; })
-    .attr("font-family",  "Courier")
-    .attr("fill", "black")
-    .style("opacity", "0.8")
-    .attr("font-size", "0.8em")
-    .attr("text-anchor",  "middle");
+  circlesGroup.append("text") // returns a selection of text, newly append to each g in node
+      .text(function(d) { return d.abbr; })
+    //  .attr("fill", "white")
+      .style("opacity", "1")
+      .style("fill", "white")
+      .attr("font-size", "0.8em")
+      .attr("text-anchor",  "middle");
+  // DOESN'T WORK ?????????????????? - END
 
   // Create group for two x-axis labels
   var labelsGroup = chartGroup.append("g")
