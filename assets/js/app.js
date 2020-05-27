@@ -104,6 +104,9 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     data.age = +data.age;
     data.income = +data.income;
     data.obesity = +data.obesity;
+    data.healthcare = +data.healthcare;
+    data.smokes = +data.smokes;
+
   });
 
   // xLinearScale function above csv import
@@ -135,9 +138,21 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d.healthcare))
-    .attr("r", 20)
-    .attr("fill", "blue")
-    .attr("opacity", ".5");
+    .attr("r", 10)
+    .attr("fill", "lightblue")
+    .attr("opacity", "1");
+
+  //Adding text labels to the groups
+  circlesGroup.append("text");
+
+  //Styling text
+  circlesGroup.selectAll("text")
+    .text(function(d) { return d.abbr; })
+    .attr("font-family",  "Courier")
+    .attr("fill", "black")
+    .style("opacity", "0.8")
+    .attr("font-size", "0.8em")
+    .attr("text-anchor",  "middle");
 
   // Create group for two x-axis labels
   var labelsGroup = chartGroup.append("g")
