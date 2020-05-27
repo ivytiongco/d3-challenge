@@ -142,19 +142,17 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 10)
-    .attr("fill", "lightblue")
+    .attr("fill", "skyblue")
     .attr("opacity", "1");
 
   // Add state abbreviations text to circles
   circlesGroup
     .append("text")
-  //  .classed('circleText', true)
-  //  .data(healthData)
     .attr("fill", "white")
     .attr("text-anchor", "middle")
-    .attr("font-size", "0.8em")
+    .attr("font-size", "0.6em")
     .attr('dx', d => xLinearScale(d[chosenXAxis]))
-    .attr('dy', d => yLinearScale(d.healthcare))
+    .attr('dy', d => yLinearScale(d.healthcare) + 4)
     .text(function(d) {
       return d.abbr
     });  
