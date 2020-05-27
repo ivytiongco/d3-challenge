@@ -14,7 +14,7 @@ var height = svgHeight - margin.top - margin.bottom;
 // Create an SVG wrapper, append an SVG group that will hold our chart,
 // and shift the latter by left and top margins.
 var svg = d3
-  .select(".chart")
+  .select("#scatter")
   .append("svg")
   .attr("width", svgWidth)
   .attr("height", svgHeight);
@@ -95,7 +95,7 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("data/data.csv").then(function(povertyData, err) {
+d3.csv("assets/data/data.csv").then(function(povertyData, err) {
   if (err) throw err;
 
   // parse data
@@ -152,7 +152,7 @@ d3.csv("data/data.csv").then(function(povertyData, err) {
   var albumsLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
-    .attr("value", "num_albums") // value to grab for event listener
+    .attr("value", "age") // value to grab for event listener
     .classed("inactive", true)
     .text("Age (Median)");
 
@@ -194,7 +194,7 @@ d3.csv("data/data.csv").then(function(povertyData, err) {
         circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
 
         // changes classes to change bold text
-        if (chosenXAxis === "num_albums") {
+        if (chosenXAxis === "age") {
           albumsLabel
             .classed("active", true)
             .classed("inactive", false);
