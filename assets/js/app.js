@@ -27,11 +27,11 @@ var chartGroup = svg.append("g")
 var chosenXAxis = "poverty";
 
 // function used for updating x-scale var upon click on axis label
-function xScale(povertyData, chosenXAxis) {
+function xScale(healthData, chosenXAxis) {
   // create scales
   var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(povertyData, d => d[chosenXAxis]) * 0.8,
-      d3.max(poverty, d => d[chosenXAxis]) * 1.2
+    .domain([d3.min(healthData, d => d[chosenXAxis]) * 0.8,
+      d3.max(healthData, d => d[chosenXAxis]) * 1.2
     ])
     .range([0, width]);
 
@@ -95,22 +95,22 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("assets/data/data.csv").then(function(povertyData, err) {
+d3.csv("assets/data/data.csv").then(function(healthData, err) {
   if (err) throw err;
 
   // parse data
-  povertyData.forEach(function(data) {
+  healthData.forEach(function(data) {
     data.poverty = +data.poverty;
     data.age = +data.age;
     data.income = +data.income;
   });
 
   // xLinearScale function above csv import
-  var xLinearScale = xScale(povertyData, chosenXAxis);
+  var xLinearScale = xScale(healthData, chosenXAxis);
 
   // Create y scale function
   var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(povertyData, d => d.num_hits)])
+    .domain([0, d3.max(healthData, d => d.healthcare)])
     .range([height, 0]);
 
   // Create initial axis functions
@@ -129,7 +129,7 @@ d3.csv("assets/data/data.csv").then(function(povertyData, err) {
 
   // append initial circles
   var circlesGroup = chartGroup.selectAll("circle")
-    .data(povertyData)
+    .data(healthData)
     .enter()
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
@@ -182,7 +182,7 @@ d3.csv("assets/data/data.csv").then(function(povertyData, err) {
 
         // functions here found above csv import
         // updates x scale for new data
-        xLinearScale = xScale(povertyData, chosenXAxis);
+        xLinearScale = xScale(healthData, chosenXAxis);
 
         // updates x axis with transition
         xAxis = renderAxes(xLinearScale, xAxis);
