@@ -103,6 +103,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     data.poverty = +data.poverty;
     data.age = +data.age;
     data.income = +data.income;
+    data.obesity = +data.obesity;
   });
 
   // xLinearScale function above csv import
@@ -135,7 +136,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 20)
-    .attr("fill", "pink")
+    .attr("fill", "blue")
     .attr("opacity", ".5");
 
   // Create group for two x-axis labels
