@@ -135,6 +135,9 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
   var circlesGroup = chartGroup.selectAll("circle")
     .data(healthData)
     .enter()
+    .append("g");
+
+  circlesGroup
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
     .attr("cy", d => yLinearScale(d.healthcare))
@@ -142,11 +145,19 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .attr("fill", "lightblue")
     .attr("opacity", "1");
 
-  var circleLabels = chartGroup.append("text")
-    .classed('circleText', true)
-    .attr('dy', '0.35em')
-    .attr('dx', 5)
-    .text(d => "Node: " + d.id);
+  // Add state abbreviations text to circles
+  circlesGroup
+    .append("text")
+  //  .classed('circleText', true)
+  //  .data(healthData)
+    .attr("fill", "white")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "0.8em")
+    .attr('dx', d => xLinearScale(d[chosenXAxis]))
+    .attr('dy', d => yLinearScale(d.healthcare))
+    .text(function(d) {
+      return d.abbr
+    });  
 
   // Create group for two x-axis labels
   var labelsGroup = chartGroup.append("g")
