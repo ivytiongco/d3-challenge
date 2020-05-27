@@ -27,10 +27,10 @@ var chartGroup = svg.append("g")
 var chosenXAxis = "poverty";
 
 // function used for updating x-scale var upon click on axis label
-function xScale(poverty, chosenXAxis) {
+function xScale(povertyData, chosenXAxis) {
   // create scales
   var xLinearScale = d3.scaleLinear()
-    .domain([d3.min(poverty, d => d[chosenXAxis]) * 0.8,
+    .domain([d3.min(povertyData, d => d[chosenXAxis]) * 0.8,
       d3.max(poverty, d => d[chosenXAxis]) * 1.2
     ])
     .range([0, width]);
@@ -67,17 +67,18 @@ function updateToolTip(chosenXAxis, circlesGroup) {
   var label;
 
   if (chosenXAxis === "poverty") {
-    label = "Hair Length:";
+    label = "Poverty:";
+    label2 = "Obesity:";
   }
   else {
-    label = "# of Albums:";
+    label = "Age (Median):";
   }
 
   var toolTip = d3.tip()
     .attr("class", "tooltip")
     .offset([80, -60])
     .html(function(d) {
-      return (`${d.rockband}<br>${label} ${d[chosenXAxis]}`);
+      return (`${d.state}<br>${label}<br>${label2} ${d[chosenXAxis]}`);
     });
 
   circlesGroup.call(toolTip);
@@ -94,22 +95,22 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 }
 
 // Retrieve data from the CSV file and execute everything below
-d3.csv("data/data.csv").then(function(hairData, err) {
+d3.csv("data/data.csv").then(function(povertyData, err) {
   if (err) throw err;
 
   // parse data
-  hairData.forEach(function(data) {
-    data.hair_length = +data.hair_length;
-    data.num_hits = +data.num_hits;
-    data.num_albums = +data.num_albums;
+  povertyData.forEach(function(data) {
+    data.poverty = +data.poverty;
+    data.age = +data.age;
+    data.income = +data.income;
   });
 
   // xLinearScale function above csv import
-  var xLinearScale = xScale(hairData, chosenXAxis);
+  var xLinearScale = xScale(povertyData, chosenXAxis);
 
   // Create y scale function
   var yLinearScale = d3.scaleLinear()
-    .domain([0, d3.max(hairData, d => d.num_hits)])
+    .domain([0, d3.max(povertyData, d => d.num_hits)])
     .range([height, 0]);
 
   // Create initial axis functions
@@ -128,11 +129,11 @@ d3.csv("data/data.csv").then(function(hairData, err) {
 
   // append initial circles
   var circlesGroup = chartGroup.selectAll("circle")
-    .data(hairData)
+    .data(povertyData)
     .enter()
     .append("circle")
     .attr("cx", d => xLinearScale(d[chosenXAxis]))
-    .attr("cy", d => yLinearScale(d.num_hits))
+    .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", 20)
     .attr("fill", "pink")
     .attr("opacity", ".5");
@@ -141,19 +142,19 @@ d3.csv("data/data.csv").then(function(hairData, err) {
   var labelsGroup = chartGroup.append("g")
     .attr("transform", `translate(${width / 2}, ${height + 20})`);
 
-  var hairLengthLabel = labelsGroup.append("text")
+  var povertyLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 20)
-    .attr("value", "hair_length") // value to grab for event listener
+    .attr("value", "poverty") // value to grab for event listener
     .classed("active", true)
-    .text("Hair Metal Ban Hair Length (inches)");
+    .text("In Poverty (%)");
 
   var albumsLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
     .attr("value", "num_albums") // value to grab for event listener
     .classed("inactive", true)
-    .text("# of Albums Released");
+    .text("Age (Median)");
 
   // append y axis
   chartGroup.append("text")
@@ -162,7 +163,7 @@ d3.csv("data/data.csv").then(function(hairData, err) {
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .classed("axis-text", true)
-    .text("Number of Billboard 500 Hits");
+    .text("Lacks Healthcare (%)");
 
   // updateToolTip function above csv import
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
@@ -181,7 +182,7 @@ d3.csv("data/data.csv").then(function(hairData, err) {
 
         // functions here found above csv import
         // updates x scale for new data
-        xLinearScale = xScale(hairData, chosenXAxis);
+        xLinearScale = xScale(povertyData, chosenXAxis);
 
         // updates x axis with transition
         xAxis = renderAxes(xLinearScale, xAxis);
