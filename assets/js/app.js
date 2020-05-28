@@ -198,7 +198,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
         // replaces chosenXAxis with value
         chosenXAxis = value;
 
-        // console.log(chosenXAxis)
+        console.log(chosenXAxis)
 
         // functions here found above csv import
         // updates x scale for new data
@@ -207,7 +207,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
         // updates x axis with transition
         xAxis = renderAxes(xLinearScale, xAxis);
 
-        // updates circles with new x values
+        // updates circles with new x values - IS THIS WHERE PROBLEM IS, WHY CIRCLES NOT UPDATING????????????
         circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
 
         // updates tooltips with new info
