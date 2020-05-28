@@ -78,7 +78,6 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     .attr("class", "d3-tip")
     .offset([80, -60])  
     .html(function(d) {
-  //    return (`${d.state}<br>${label} ${d[chosenXAxis]}<br>${label2} ${d[chosenXAxis]}`);
     return (`${d.state}<br>${label} ${d[chosenXAxis]}<br>${label2} ${d.healthcare}`);
     });
 
@@ -86,10 +85,12 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 
   circlesGroup.on("mouseover", function(data) {
     toolTip.show(data);
+  //  circlesGroup.style("stroke", "black");  ** HOW TO MAKE ONLY SELECTED DATA PT HAVE BORDER, NOT ALL?????
   })
     // onmouseout event
     .on("mouseout", function(data, index) {
       toolTip.hide(data);
+    //  circlesGroup.style("stroke", "transparent");
     });
 
   return circlesGroup;
