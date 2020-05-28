@@ -68,9 +68,9 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 
   if (chosenXAxis === "poverty") {
     label = "Poverty:";
-    label2 = "Obesity:";
+    label2 = "Healthcare:";
   }
-  else {
+  else if (chosenXAxis === "age"){
     label = "Age (Median):";
   }
 
@@ -78,7 +78,8 @@ function updateToolTip(chosenXAxis, circlesGroup) {
     .attr("class", "d3-tip")
     .offset([80, -60])  
     .html(function(d) {
-      return (`${d.state}<br>${label}<br>${label2} ${d[chosenXAxis]}`);
+  //    return (`${d.state}<br>${label} ${d[chosenXAxis]}<br>${label2} ${d[chosenXAxis]}`);
+    return (`${d.state}<br>${label} ${d[chosenXAxis]}<br>${label2} ${d.healthcare}`);
     });
 
   circlesGroup.call(toolTip);
@@ -168,7 +169,7 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .classed("active", true)
     .text("In Poverty (%)");
 
-  var albumsLabel = labelsGroup.append("text")
+  var ageLabel = labelsGroup.append("text")
     .attr("x", 0)
     .attr("y", 40)
     .attr("value", "age") // value to grab for event listener
@@ -214,18 +215,18 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
 
         // changes classes to change bold text
         if (chosenXAxis === "age") {
-          albumsLabel
+          ageLabel
             .classed("active", true)
             .classed("inactive", false);
-          hairLengthLabel
+          povertyLabel
             .classed("active", false)
             .classed("inactive", true);
         }
         else {
-          albumsLabel
+          ageLabel
             .classed("active", false)
             .classed("inactive", true);
-          hairLengthLabel
+          povertyLabel
             .classed("active", true)
             .classed("inactive", false);
         }
