@@ -85,12 +85,14 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 
   circlesGroup.on("mouseover", function(data) {
     toolTip.show(data);
-    circlesGroup.style("stroke", "black");  //**** HOW TO MAKE ONLY SELECTED DATA PT HAVE BORDER, NOT ALL????????
+    d3.select(this)
+      .style("stroke", "black");
   })
     // onmouseout event
     .on("mouseout", function(data, index) {
       toolTip.hide(data);
-      circlesGroup.style("stroke", "transparent");
+      d3.select(this)
+        .style("stroke", "transparent");
     });
 
   return circlesGroup;
