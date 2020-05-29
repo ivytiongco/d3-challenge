@@ -85,12 +85,12 @@ function updateToolTip(chosenXAxis, circlesGroup) {
 
   circlesGroup.on("mouseover", function(data) {
     toolTip.show(data);
-  //  circlesGroup.style("stroke", "black");  **** HOW TO MAKE ONLY SELECTED DATA PT HAVE BORDER, NOT ALL????????
+    circlesGroup.style("stroke", "black");  //**** HOW TO MAKE ONLY SELECTED DATA PT HAVE BORDER, NOT ALL????????
   })
     // onmouseout event
     .on("mouseout", function(data, index) {
       toolTip.hide(data);
-    //  circlesGroup.style("stroke", "transparent");
+      circlesGroup.style("stroke", "transparent");
     });
 
   return circlesGroup;
@@ -177,14 +177,14 @@ d3.csv("assets/data/data.csv").then(function(healthData, err) {
     .classed("inactive", true)
     .text("Age (Median)");
 
-  // append y axis
+  // Append y-axis
   chartGroup.append("text")
     .attr("transform", "rotate(-90)")
     .attr("y", 0 - margin.left)
     .attr("x", 0 - (height / 2))
     .attr("dy", "1em")
     .classed("axis-text", true)
-    .text("Lacks Healthcare (%)");
+    .text("Lacks Healthcare (%)");  
 
   // updateToolTip function above csv import
   var circlesGroup = updateToolTip(chosenXAxis, circlesGroup);
