@@ -17,4 +17,8 @@ Add tooltips to your circles and display each tooltip with the data that the use
 
 Scatter plot of Poverty vs. Lack of Healthcare
 
-![](screenshot/scatter.png)
+![](screenshots/scatter.png)
+
+Scatter plot showing tooltip
+
+![](screenshots/scatter-tooltip.png)
