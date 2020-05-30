@@ -13,7 +13,7 @@ Note: You'll need to use python -m http.server to run the visualization. This wi
 Incorporate d3-tip (Bonus):
 Add tooltips to your circles and display each tooltip with the data that the user has selected. Use the d3-tip.js plugin developed by Justin Palmer—we've already included this plugin in your assignment directory.
 
-## Scatter Plot Screenshot
+## Scatter Plot Screenshots
 
 Scatter plot of Poverty vs. Lack of Healthcare
 
