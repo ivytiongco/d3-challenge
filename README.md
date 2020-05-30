@@ -19,6 +19,6 @@ Scatter plot of Poverty vs. Lack of Healthcare
 
 ![](screenshots/scatter.png)
 
-Scatter plot showing tooltip
+Scatter plot showing tooltip and border on selected data point
 
 ![](screenshots/scatter-tooltip.png)
